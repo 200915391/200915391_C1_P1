@@ -7,7 +7,6 @@ import static scaner_01.Tokens.*;
 %unicode
 %line
 %char
-%ignorecase
 %full
 
 D = [0-9]+
@@ -19,36 +18,58 @@ espacio=[ ,\t,\r]+
 %}
 %%
 
-(GenerarReporteEstadistico)          {lexeme=yytext(); return GenerarReporteEstadistico;}
-(Compare)                            {lexeme=yytext(); return Compare;}
-(DefinirGlobales)                    {lexeme=yytext(); return DefinirGlobales;}
-(GraficaBarras)                      {lexeme=yytext(); return GraficaBarras;}
-(GraficaPie)                         {lexeme=yytext(); return GraficaPie;}
-(GraficaLineas)                      {lexeme=yytext(); return GraficaLineas;}
-(string)                             {lexeme=yytext(); return string_V;}
-(double)                             {lexeme=yytext(); return double_V;}
-(Titulo)                             {lexeme=yytext(); return Titulo;}
-(Ejex)                               {lexeme=yytext(); return Ejex;}
-(Valores)                            {lexeme=yytext(); return Valores;}
-(TituloX)                            {lexeme=yytext(); return TituloX;}
-(TituloY)                            {lexeme=yytext(); return TituloY;}
-(Archivo)                            {lexeme=yytext(); return Archivo;}
-("[")                                {lexeme=yytext(); return CORCHETE_A;}
-("]")                                {lexeme=yytext(); return CORCHETE_C;}
+
+("//"(.)*)                           {lexeme=yytext(); return COMENTUNILINEA_;}
+("<!"((.)*|"\n")*"!>")               {lexeme=yytext(); return COMENTMULTILINEA_;}
+({L}+({L}|{D}|"_")*)                 {lexeme=yytext(); return IDENTIFICADOR_;}
+(CONJ)                               {lexeme=yytext(); return CONJUNTO_;}
+("%%")                               {lexeme=yytext(); return SEPARADOR_;}
+
+
+("!")                                {lexeme=yytext(); return ADMIRACION_;}
+("\"")                               {lexeme=yytext(); return COMILLADOBLE_;}
+("#")                                {lexeme=yytext(); return NUMERAL_;}
+("$")                                {lexeme=yytext(); return DOLAR_;}
+("%")                                {lexeme=yytext(); return PORCENTAJE_;}
+("&")                                {lexeme=yytext(); return AMPERSAND_;}
+("'")                                {lexeme=yytext(); return COMILLASIMPLE_;}
+("(")                                {lexeme=yytext(); return PARENTESISABIERTO_;}
+(")")                                {lexeme=yytext(); return PARENTESISCERRADO_;}
+("*")                                {lexeme=yytext(); return ASTERISCO_;}
+("+")                                {lexeme=yytext(); return MAS_;}
+(",")                                {lexeme=yytext(); return COMA_;}
+("-")                                {lexeme=yytext(); return MENOS_;}
+(".")                                {lexeme=yytext(); return PUNTO_;}
+("/")                                {lexeme=yytext(); return BARRA_;}
+
+(":")                                {lexeme=yytext(); return DOSPUNTOS_;}
+(";")                                {lexeme=yytext(); return PUNTOYCOMA_;}
+("<")                                {lexeme=yytext(); return MENORQUE_;}
+("=")                                {lexeme=yytext(); return IGUAL_;}
+(">")                                {lexeme=yytext(); return MAYORQUE_;}
+("?")                                {lexeme=yytext(); return INTERROGACION_;}
+("@")                                {lexeme=yytext(); return ARROBA_;}
+
+("[")                                {lexeme=yytext(); return CORCHETEABIERTO_;}
+("\\")                                {lexeme=yytext(); return BARRAINVERTIDA_;}
+("]")                                {lexeme=yytext(); return CORCHECERRADO_;}
+
+
+
+
 ("{")                                {lexeme=yytext(); return LLAVE_A;}
 ("}")                                {lexeme=yytext(); return LLAVE_C;}
-("(")                                {lexeme=yytext(); return PAREN_A;}
-(")")                                {lexeme=yytext(); return PAREN_C;}
+
 ("\""({L}|{D}|"_"|"-"|":"|"/"|"\\"|"."|" ")+"\"")                             {lexeme=yytext(); return COMILLA_D;}
-("=")                                {lexeme=yytext(); return IGUAL;}
-("$")                                {lexeme=yytext(); return DOLAR;}
-(":")                                {lexeme=yytext(); return DOS_PUNTOS;}
-(";")                                {lexeme=yytext(); return PUNTOYCOMA;}
-(",")                                {lexeme=yytext(); return COMA;}
-("##"(.)*)                           {lexeme=yytext(); return COMENT_UNILINEA;}
-("#*"((.)*|"\n")*"*#")               {lexeme=yytext(); return COMENT_MULTILINEA;}
-({D}+("."{D}+)?)                        {lexeme=yytext(); return NUMERO;}
-({L}+({L}|{D}|".")*)                     {lexeme=yytext(); return Identificador;}
+
+
+
+
+
+
+
+({D}+("."{D}+)?)                     {lexeme=yytext(); return NUMERO;}
+
  ("'"({L}|{D}|"_"|"-"|":"|"/"|"\\"|"."|" ")+"'")                         {lexeme=yytext(); return DIR_ARCHIVO;}
 {espacio}                            {/*Ignore*/}
 ("\n")                               {return Linea;}
