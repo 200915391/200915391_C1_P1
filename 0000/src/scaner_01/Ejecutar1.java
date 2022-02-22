@@ -33,15 +33,15 @@ public class Ejecutar1 {
             Files.delete(rutaSym);
         }
         Files.move(
-                Paths.get("C:/Users/r0gv3/Desktop/002/sym.java"), 
+                Paths.get("C:/Users/r0gv3/Documents/GitHub/200915391_C1_P1/0000/sym.java"), 
                 Paths.get("src/scaner_01/sym.java")
         );
-        Path rutaSin = Paths.get("src/scaner_01/sintax1.java");
+        Path rutaSin = Paths.get("src/scaner_01/sintax.java");
         if (Files.exists(rutaSin)) {
             Files.delete(rutaSin);
         }
         Files.move(
-                Paths.get("C:/Users/r0gv3/Desktop/002/sintax.java"), 
+                Paths.get("C:/Users/r0gv3/Documents/GitHub/200915391_C1_P1/0000/sintax.java"), 
                 Paths.get("src/scaner_01/sintax.java")
         );
     }
