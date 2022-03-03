@@ -136,6 +136,9 @@ espacio=[ ,\t,\r,\n]+
 ({L}+({L}|{D}|"_")*)                 {return new Symbol(sym.IDENTIFICADOR_, yychar, yyline, yytext());}
 ({D}+("."{D}+)?)                     {return new Symbol(sym.NUMEROCOMPUESTO_, yychar, yyline, yytext());}
 ("%%")                               {return new Symbol(sym.SEPARADOR_, yychar, yyline, yytext());}
+("\\n")                              {return new Symbol(sym.SALTODELINEATEXTO_, yychar, yyline, yytext());}
+("\\")("'")                          {return new Symbol(sym.COMILLASIMPLETEXTO_, yychar, yyline, yytext());}
+("\\")("\"")                         {return new Symbol(sym.COMILLADOBLETEXTO_, yychar, yyline, yytext());}
 
 {espacio}                            {/*Ignore*/}
 

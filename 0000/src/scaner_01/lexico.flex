@@ -129,6 +129,9 @@ espacio=[ ,\t,\r]+
 ({L}+({L}|{D}|"_")*)                 {lexeme=yytext(); return IDENTIFICADOR_;}
 ({D}+("."{D}+)?)                     {lexeme=yytext(); return NUMEROCOMPUESTO_;}
 ("%%")                               {lexeme=yytext(); return SEPARADOR_;}
+("\\n")                              {lexeme=yytext(); return SALTODELINEATEXTO_;}
+("\\")("'")                          {lexeme=yytext(); return COMILLASIMPLETEXTO_;}
+("\\")("\"")                         {lexeme=yytext(); return COMILLADOBLETEXTO_;}
 
 {espacio}                            {/*Ignore*/}
 ("\n")                               {return Linea;}

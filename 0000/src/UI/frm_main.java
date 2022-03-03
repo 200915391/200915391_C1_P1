@@ -731,6 +731,18 @@ public class frm_main extends javax.swing.JFrame {
                     contador_de_columna++;
                         resultado += " Separador " + contador_de_linea + "\n";
                         break;
+                case SALTODELINEATEXTO_:
+                    contador_de_columna++;
+                        resultado += " \\n como salto tip texto " + contador_de_linea + "\n";
+                        break;
+                case COMILLASIMPLETEXTO_:
+                    contador_de_columna++;
+                        resultado += " \\' comilla simple texto " + contador_de_linea + "\n";
+                        break;
+                case COMILLADOBLETEXTO_:
+                    contador_de_columna++;
+                        resultado += " \\\" comilla DOBLE texto " + contador_de_linea + "\n";
+                        break;
                         
                         
                         
