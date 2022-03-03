@@ -18,12 +18,7 @@ espacio=[ ,\t,\r]+
 %}
 %%
 
-("//"(.)*)                           {lexeme=yytext(); return COMENTUNILINEA_;}
-("<!"((.)*|"\n")*"!>")               {lexeme=yytext(); return COMENTMULTILINEA_;}
-({L}+({L}|{D}|"_")*)                 {lexeme=yytext(); return IDENTIFICADOR_;}
-({D}+("."{D}+)?)                     {lexeme=yytext(); return NUMEROCOMPUESTO_;}
-(CONJ)                               {lexeme=yytext(); return CONJUNTO_;}
-("%%")                               {lexeme=yytext(); return SEPARADOR_;}
+
 
 
 ("!")                                {lexeme=yytext(); return ADMIRACION_;}
@@ -126,6 +121,14 @@ espacio=[ ,\t,\r]+
 ("|")                                {lexeme=yytext(); return BARRAVERTICAL_;}
 ("}")                                {lexeme=yytext(); return LLAVEC_;}
 ("~")                                {lexeme=yytext(); return TILDE_;}
+
+("->")                               {lexeme=yytext(); return ASIGNACIONCONJUNTO_;}
+("//"(.)*)                           {lexeme=yytext(); return COMENTUNILINEA_;}
+("<!"((.)*|"\n")*"!>")               {lexeme=yytext(); return COMENTMULTILINEA_;}
+(CONJ)                               {lexeme=yytext(); return CONJUNTO_;}
+({L}+({L}|{D}|"_")*)                 {lexeme=yytext(); return IDENTIFICADOR_;}
+({D}+("."{D}+)?)                     {lexeme=yytext(); return NUMEROCOMPUESTO_;}
+("%%")                               {lexeme=yytext(); return SEPARADOR_;}
 
 {espacio}                            {/*Ignore*/}
 ("\n")                               {return Linea;}

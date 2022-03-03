@@ -9,13 +9,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.StringReader;
 import java.nio.file.Files;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
+import scaner_01.*;
 /**
  *
  * @author r0gv3
@@ -63,6 +64,11 @@ public class frm_main extends javax.swing.JFrame {
         jScrollPane1.setViewportView(txt_entrada);
 
         jButton1.setText("Lexico");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Sintactico");
 
@@ -182,6 +188,19 @@ public class frm_main extends javax.swing.JFrame {
         guardarArchivo();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            // TODO add your handling code here:
+
+            Analizar_lexico_01();
+        } catch (IOException ex) {
+            Logger.getLogger(frm_main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     
     //metodo abrir archivo
     private void guardarArchivo() {
@@ -216,6 +235,11 @@ public class frm_main extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    
+//    public void prue(){
+//    System.out.println("caballo de patas blancas");
+//    };
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -244,9 +268,487 @@ public class frm_main extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new frm_main().setVisible(true);
+               
             }
         });
     }
+    
+    
+    private void Analizar_lexico_01() throws IOException{
+         int contador_de_linea =1;
+         int contador_de_columna=1;
+         String expr = (String) txt_entrada.getText();
+         scaner_01.Lexer lexer = new scaner_01.Lexer(new StringReader(expr));
+    String resultado = "LINEA " + contador_de_linea + "\t\tSIMBOLO\n";
+        
+    while (true) {
+            scaner_01.Tokens token = lexer.yylex();
+            //Tokens token = lexer.yylex();
+            if (token == null) {
+                txt_salida.setText(resultado);
+                return;
+            }
+            switch (token) {
+                case Linea:
+                    contador_de_linea++;
+                    contador_de_columna=1;
+                    resultado += "LINEA " + contador_de_linea + "\n";
+                    
+    
+                    break;
+                    
+                case ADMIRACION_://33
+                    contador_de_columna++;
+                        resultado += lexer.lexeme + contador_de_linea + "!" + "\n";                   
+                        break;
+                        
+                case COMILLADOBLE_://34
+                    contador_de_columna++;
+                        resultado += " \" " + contador_de_linea + "\n";
+                        break;
+                        
+                case NUMERAL_://35
+                    contador_de_columna++;
+                        resultado += " # " + contador_de_linea + "\n";
+                        break;
+                        
+                case DOLAR_://36
+                    contador_de_columna++;
+                        resultado += " $ " + contador_de_linea + "\n";
+                        break;
+                        
+                case PORCENTAJE_://37
+                    contador_de_columna++;
+                        resultado += " % " + contador_de_linea + "\n";
+                        break;
+                        
+                case AMPERSAND_://38
+                    contador_de_columna++;
+                        resultado += " & " + contador_de_linea + "\n";
+                        break;
+                        
+                case COMILLASIMPLE_://39
+                    contador_de_columna++;
+                        resultado += " ' " + contador_de_linea + "\n";
+                        break;
+                        
+                case PARENTESISABIERTO_://40 
+                    contador_de_columna++;
+                        resultado += " ( " + contador_de_linea + "\n";
+                        break;
+                        
+                case PARENTESISCERRADO_://41
+                    contador_de_columna++;
+                        resultado += " ) " + contador_de_linea + "\n";
+                        break;
+                        
+                case ASTERISCO_://42
+                    contador_de_columna++;
+                        resultado += " * " + contador_de_linea + "\n";
+                        break;
+                        
+                case MAS_://43
+                    contador_de_columna++;
+                        resultado += " + " + contador_de_linea + "\n";
+                        break;
+                        
+                case COMA_://44
+                    contador_de_columna++;
+                        resultado += " ,  " + contador_de_linea + "\n";
+                        break;
+                        
+                case MENOS_://45
+                    contador_de_columna++;
+                        resultado += " - " + contador_de_linea + "\n";
+                        break;
+                        
+                case PUNTO_://46
+                    contador_de_columna++;
+                        resultado += " . " + contador_de_linea + "\n";
+                        break;
+                        
+                case BARRA_://47
+                    contador_de_columna++;
+                        resultado += " / " + contador_de_linea + "\n";
+                        break;
+                //ini  num        
+                case CERO_://48
+                    contador_de_columna++;
+                        resultado += " 0 " + contador_de_linea + "\n";
+                        break;       
+                case UNO_://49
+                    contador_de_columna++;
+                        resultado += "1 " + contador_de_linea + "\n";
+                        break;       
+                case DOS_://50
+                    contador_de_columna++;
+                        resultado += " 2 " + contador_de_linea + "\n";
+                        break;       
+                case TRES_://51
+                    contador_de_columna++;
+                        resultado += " 3 " + contador_de_linea + "\n";
+                        break;       
+                case CUATRO_://52
+                    contador_de_columna++;
+                        resultado += " 4 " + contador_de_linea + "\n";
+                        break;       
+                case CINCO_://53
+                    contador_de_columna++;
+                        resultado += " 5 " + contador_de_linea + "\n";
+                        break;       
+                case SEIS_://54
+                    contador_de_columna++;
+                        resultado += " 6 " + contador_de_linea + "\n";
+                        break;       
+                case SIETE_://55
+                    contador_de_columna++;
+                        resultado += " 7 " + contador_de_linea + "\n";
+                        break;       
+                case OCHO_://56
+                    contador_de_columna++;
+                        resultado += " 8 " + contador_de_linea + "\n";
+                        break;       
+                case NUEVE_://57
+                    contador_de_columna++;
+                        resultado += " 9 " + contador_de_linea + "\n";
+                        break;       
+                 //end num       
+                      
+                case DOSPUNTOS_://58 
+                    contador_de_columna++;
+                        resultado += " : " + contador_de_linea + "\n";
+                        break;         
+                case PUNTOYCOMA_://59 
+                    contador_de_columna++;
+                        resultado += " ; " + contador_de_linea + "\n";
+                        break;         
+                case MENORQUE_://60
+                    contador_de_columna++;
+                        resultado += " < " + contador_de_linea + "\n";
+                        break;         
+                case IGUAL_://61 
+                    contador_de_columna++;
+                        resultado += " = " + contador_de_linea + "\n";
+                        break;         
+                case MAYORQUE_://62  > 
+                    contador_de_columna++;
+                        resultado += " > " + contador_de_linea + "\n";
+                        break;         
+                case INTERROGACION_://63
+                    contador_de_columna++;
+                        resultado += " ? " + contador_de_linea + "\n";
+                        break;         
+                case ARROBA_://64
+                    contador_de_columna++;
+                        resultado += " @ " + contador_de_linea + "\n";
+                        break;         
+                        
+                //ini letras may
+                    case LETRAAMAY_://65
+                    contador_de_columna++;
+                        resultado += " A " + contador_de_linea + "\n";
+                        break;    
+                    case LETRABMAY_://66
+                    contador_de_columna++;
+                        resultado += " B " + contador_de_linea + "\n";
+                        break;    
+                    case LETRACMAY_://67
+                    contador_de_columna++;
+                        resultado += " C " + contador_de_linea + "\n";
+                        break;    
+                    case LETRADMAY_://68
+                    contador_de_columna++;
+                        resultado += " D " + contador_de_linea + "\n";
+                        break;    
+                    case LETRAEMAY_://69
+                    contador_de_columna++;
+                        resultado += " E " + contador_de_linea + "\n";
+                        break;    
+                    case LETRAFMAY_://70
+                    contador_de_columna++;
+                        resultado += " F " + contador_de_linea + "\n";
+                        break;    
+                    case LETRAGMAY_://71
+                    contador_de_columna++;
+                        resultado += " G " + contador_de_linea + "\n";
+                        break;    
+                    case LETRAHMAY_://72
+                    contador_de_columna++;
+                        resultado += " H " + contador_de_linea + "\n";
+                        break;    
+                    case LETRAIMAY_://73
+                    contador_de_columna++;
+                        resultado += " I " + contador_de_linea + "\n";
+                        break;    
+                    case LETRAJMAY_://74
+                    contador_de_columna++;
+                        resultado += " J " + contador_de_linea + "\n";
+                        break;    
+                    case LETRAKMAY_://75
+                    contador_de_columna++;
+                        resultado += " K " + contador_de_linea + "\n";
+                        break;    
+                    case LETRALMAY_://76
+                    contador_de_columna++;
+                        resultado += " L " + contador_de_linea + "\n";
+                        break;    
+                    case LETRAMMAY_://77
+                    contador_de_columna++;
+                        resultado += " M " + contador_de_linea + "\n";
+                        break;    
+                    case LETRANMAY_://78
+                    contador_de_columna++;
+                        resultado += " N " + contador_de_linea + "\n";
+                        break;    
+                    case LETRAOMAY_://79
+                    contador_de_columna++;
+                        resultado += " O " + contador_de_linea + "\n";
+                        break;    
+                    case LETRAPMAY_://80
+                    contador_de_columna++;
+                        resultado += " P " + contador_de_linea + "\n";
+                        break;    
+                    case LETRAQMAY_://81
+                    contador_de_columna++;
+                        resultado += " Q " + contador_de_linea + "\n";
+                        break;    
+                    case LETRARMAY_://82
+                    contador_de_columna++;
+                        resultado += " R " + contador_de_linea + "\n";
+                        break;    
+                    case LETRASMAY_://83
+                    contador_de_columna++;
+                        resultado += " S " + contador_de_linea + "\n";
+                        break;    
+                    case LETRATMAY_://84
+                    contador_de_columna++;
+                        resultado += " T " + contador_de_linea + "\n";
+                        break;    
+                    case LETRAUMAY_://85
+                    contador_de_columna++;
+                        resultado += " U " + contador_de_linea + "\n";
+                        break;    
+                    case LETRAVMAY_://86
+                    contador_de_columna++;
+                        resultado += " V " + contador_de_linea + "\n";
+                        break;    
+                    case LETRAWMAY_://87
+                    contador_de_columna++;
+                        resultado += " W " + contador_de_linea + "\n";
+                        break;    
+                    case LETRAXMAY_://88
+                    contador_de_columna++;
+                        resultado += " X " + contador_de_linea + "\n";
+                        break;    
+                    case LETRAYMAY_://89
+                    contador_de_columna++;
+                        resultado += " Y " + contador_de_linea + "\n";
+                        break;    
+                    case LETRAZMAY_://90
+                    contador_de_columna++;
+                        resultado += " Z " + contador_de_linea + "\n";
+                        break;          
+                //fin letras May
+                     case CORCHETEABIERTO_://91
+                    contador_de_columna++;
+                        resultado += " [ " + contador_de_linea + "\n";
+                        break;    
+                     case BARRAINVERTIDA_://92
+                    contador_de_columna++;
+                        resultado += " \\ " + contador_de_linea + "\n";
+                        break;    
+                     case CORCHECERRADO_://93
+                    contador_de_columna++;
+                        resultado += " ] " + contador_de_linea + "\n";
+                        break;    
+                     case ACENTOCIRCUNFLEJO_://94
+                    contador_de_columna++;
+                        resultado += " ^ " + contador_de_linea + "\n";
+                        break;    
+                     case GUIONBAJO_://95
+                    contador_de_columna++;
+                        resultado += " _ " + contador_de_linea + "\n";
+                        break;    
+                     case ACENTOGRAVE_://96
+                    contador_de_columna++;
+                        resultado += " ` " + contador_de_linea + "\n";
+                        break;    
+                        
+                    //ini letras min 
+                        case LETRAAMIN_://97
+                    contador_de_columna++;
+                        resultado += " a " + contador_de_linea + "\n";
+                        break;    
+                    case LETRABMIN_://98
+                    contador_de_columna++;
+                        resultado += " b " + contador_de_linea + "\n";
+                        break;    
+                    case LETRACMIN_://99
+                    contador_de_columna++;
+                        resultado += " c " + contador_de_linea + "\n";
+                        break;    
+                    case LETRADMIN_://100
+                    contador_de_columna++;
+                        resultado += " d " + contador_de_linea + "\n";
+                        break;    
+                    case LETRAEMIN_://101
+                    contador_de_columna++;
+                        resultado += " e " + contador_de_linea + "\n";
+                        break;    
+                    case LETRAFMIN_://102
+                    contador_de_columna++;
+                        resultado += " f " + contador_de_linea + "\n";
+                        break;    
+                    case LETRAGMIN_://103
+                    contador_de_columna++;
+                        resultado += " g " + contador_de_linea + "\n";
+                        break;    
+                    case LETRAHMIN_://104
+                    contador_de_columna++;
+                        resultado += " h " + contador_de_linea + "\n";
+                        break;    
+                    case LETRAIMIN_://105
+                    contador_de_columna++;
+                        resultado += " i " + contador_de_linea + "\n";
+                        break;    
+                    case LETRAJMIN_://106
+                    contador_de_columna++;
+                        resultado += " j " + contador_de_linea + "\n";
+                        break;    
+                    case LETRAKMIN_://107
+                    contador_de_columna++;
+                        resultado += " k " + contador_de_linea + "\n";
+                        break;    
+                    case LETRALMIN_://108
+                    contador_de_columna++;
+                        resultado += " l " + contador_de_linea + "\n";
+                        break;    
+                    case LETRAMMIN_://109
+                    contador_de_columna++;
+                        resultado += " m " + contador_de_linea + "\n";
+                        break;    
+                    case LETRANMIN_://110
+                    contador_de_columna++;
+                        resultado += " n " + contador_de_linea + "\n";
+                        break;    
+                    case LETRAOMIN_://111
+                    contador_de_columna++;
+                        resultado += " o " + contador_de_linea + "\n";
+                        break;    
+                    case LETRAPMIN_://112
+                    contador_de_columna++;
+                        resultado += " p " + contador_de_linea + "\n";
+                        break;    
+                    case LETRAQMIN_://113
+                    contador_de_columna++;
+                        resultado += " q " + contador_de_linea + "\n";
+                        break;    
+                    case LETRARMIN_://114
+                    contador_de_columna++;
+                        resultado += " r " + contador_de_linea + "\n";
+                        break;    
+                    case LETRASMIN_://115
+                    contador_de_columna++;
+                        resultado += " s " + contador_de_linea + "\n";
+                        break;    
+                    case LETRATMIN_://116
+                    contador_de_columna++;
+                        resultado += " t " + contador_de_linea + "\n";
+                        break;    
+                    case LETRAUMIN_://117
+                    contador_de_columna++;
+                        resultado += " u " + contador_de_linea + "\n";
+                        break;    
+                    case LETRAVMIN_://118
+                    contador_de_columna++;
+                        resultado += " v " + contador_de_linea + "\n";
+                        break;    
+                    case LETRAWMIN_://119
+                    contador_de_columna++;
+                        resultado += " w " + contador_de_linea + "\n";
+                        break;    
+                    case LETRAXMIN_://120
+                    contador_de_columna++;
+                        resultado += " x " + contador_de_linea + "\n";
+                        break;    
+                    case LETRAYMIN_://121
+                    contador_de_columna++;
+                        resultado += " y " + contador_de_linea + "\n";
+                        break;    
+                    case LETRAZMIN_://122
+                    contador_de_columna++;
+                        resultado += " z " + contador_de_linea + "\n";
+                        break;
+                    //fin letra min    
+                        
+                    case LLAVEA_://123
+                    contador_de_columna++;
+                        resultado += " { " + contador_de_linea + "\n";
+                        break;   
+                    case BARRAVERTICAL_://124
+                    contador_de_columna++;
+                        resultado += " | " + contador_de_linea + "\n";
+                        break;   
+                    case LLAVEC_://125
+                    contador_de_columna++;
+                        resultado += " } " + contador_de_linea + "\n";
+                        break;   
+                    case TILDE_://126
+                    contador_de_columna++;
+                        resultado += " ~ " + contador_de_linea + "\n";
+                        break;   
+                        
+                case ASIGNACIONCONJUNTO_:
+                    contador_de_columna++;
+                        resultado += " -> JOJOJO " + contador_de_linea + "\n";
+                        break;       
+                case COMENTUNILINEA_:
+                    contador_de_columna++;
+                        resultado += " comet uni linea " + contador_de_linea + "\n";
+                        break;
+                        
+                case COMENTMULTILINEA_:
+                    contador_de_columna++;
+                        resultado += " comet multi linea " + contador_de_linea + "\n";
+                        break;
+                        
+                case IDENTIFICADOR_:
+                    contador_de_columna++;
+                        resultado += " ID "+lexer.lexeme + contador_de_linea + "\n";
+                        break;
+                        
+                case NUMEROCOMPUESTO_:
+                    contador_de_columna++;
+                        resultado += " Numero compuesto " + contador_de_linea + "\n";
+                        break;
+                        
+                case CONJUNTO_:
+                    contador_de_columna++;
+                        resultado += " Conjunto: CONJ " + contador_de_linea + "\n";
+                        break;
+                        
+                case SEPARADOR_:
+                    contador_de_columna++;
+                        resultado += " Separador " + contador_de_linea + "\n";
+                        break;
+                        
+                        
+                        
+                        
+                case ERROR:                       
+                       contador_de_columna++;                   
+                    resultado += "  <Simbolo no definido>"+lexer.lexeme+"\n";
+                    break;
+                default:
+                    resultado += "  < " + lexer.lexeme + " >\n";
+                    break;
+            }
+   
+    }
+    
+     //pe
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -265,4 +767,6 @@ public class frm_main extends javax.swing.JFrame {
     private javax.swing.JTextArea txt_entrada;
     private javax.swing.JTextArea txt_salida;
     // End of variables declaration//GEN-END:variables
+
+   
 }

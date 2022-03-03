@@ -25,12 +25,7 @@ espacio=[ ,\t,\r,\n]+
 
 
 
-("//"(.)*)                           {return new Symbol(sym.COMENTUNILINEA_, yychar, yyline, yytext());}
-("<!"((.)*|"\n")*"!>")               {return new Symbol(sym.COMENTMULTILINEA_, yychar, yyline, yytext());}
-({L}+({L}|{D}|"_")*)                 {return new Symbol(sym.IDENTIFICADOR_, yychar, yyline, yytext());}
-({D}+("."{D}+)?)                     {return new Symbol(sym.NUMEROCOMPUESTO_, yychar, yyline, yytext());}
-(CONJ)                               {return new Symbol(sym.CONJUNTO_, yychar, yyline, yytext());}
-("%%")                               {return new Symbol(sym.SEPARADOR_, yychar, yyline, yytext());}
+
 
 
 ("!")                                {return new Symbol(sym.ADMIRACION_, yychar, yyline, yytext());}
@@ -133,6 +128,14 @@ espacio=[ ,\t,\r,\n]+
 ("|")                                {return new Symbol(sym.BARRAVERTICAL_, yychar, yyline, yytext());}
 ("}")                                {return new Symbol(sym.LLAVEC_, yychar, yyline, yytext());}
 ("~")                                {return new Symbol(sym.TILDE_, yychar, yyline, yytext());}
+
+("->")                               {return new Symbol(sym.ASIGNACIONCONJUNTO_, yychar, yyline, yytext());} 
+("//"(.)*)                           {return new Symbol(sym.COMENTUNILINEA_, yychar, yyline, yytext());}
+("<!"((.)*|"\n")*"!>")               {return new Symbol(sym.COMENTMULTILINEA_, yychar, yyline, yytext());}
+(CONJ)                               {return new Symbol(sym.CONJUNTO_, yychar, yyline, yytext());}
+({L}+({L}|{D}|"_")*)                 {return new Symbol(sym.IDENTIFICADOR_, yychar, yyline, yytext());}
+({D}+("."{D}+)?)                     {return new Symbol(sym.NUMEROCOMPUESTO_, yychar, yyline, yytext());}
+("%%")                               {return new Symbol(sym.SEPARADOR_, yychar, yyline, yytext());}
 
 {espacio}                            {/*Ignore*/}
 
